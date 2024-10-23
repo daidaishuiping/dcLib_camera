@@ -20,5 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "dcLib_camera"
-include ':app'
+//include ':app'
 include ':dcLib_camera'
