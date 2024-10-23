@@ -2,6 +2,9 @@ package com.dclib.camera;
 
 import android.content.Context;
 import android.hardware.Camera;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.util.Log;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -27,50 +30,48 @@ public class CameraUtil {
      * @return
      */
     public static int getRecordState() {
-        //ToDo daichao
-//        int minBuffer = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
-//        AudioRecord audioRecord =
-//                new AudioRecord(MediaRecorder.AudioSource.DEFAULT, 44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, (minBuffer * 100));
-//        short[] point = new short[minBuffer];
-//        int readSize = 0;
-//        try {
-//            audioRecord.startRecording();
-//        } catch (Exception e) {
-//            if (audioRecord != null) {
-//                audioRecord.release();
-//                audioRecord = null;
-//            }
-//            return STATE_NO_PERMISSION;
-//        }
-//        if (audioRecord.getRecordingState() != AudioRecord.RECORDSTATE_RECORDING) {
-//            if (audioRecord != null) {
-//                audioRecord.stop();
-//                audioRecord.release();
-//                audioRecord = null;
-//            }
-//            return STATE_RECORDING;
-//        } else {
-//            readSize = audioRecord.read(point, 0, point.length);
-//
-//            if (readSize <= 0) {
-//                if (audioRecord != null) {
-//                    audioRecord.stop();
-//                    audioRecord.release();
-//                    audioRecord = null;
-//                }
-//                return STATE_NO_PERMISSION;
-//
-//            } else {
-//                if (audioRecord != null) {
-//                    audioRecord.stop();
-//                    audioRecord.release();
-//                    audioRecord = null;
-//                }
-//
-//                return STATE_SUCCESS;
-//            }
-//        }
-        return 0;
+        int minBuffer = AudioRecord.getMinBufferSize(44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+        AudioRecord audioRecord =
+                new AudioRecord(MediaRecorder.AudioSource.DEFAULT, 44100, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, (minBuffer * 100));
+        short[] point = new short[minBuffer];
+        int readSize = 0;
+        try {
+            audioRecord.startRecording();
+        } catch (Exception e) {
+            if (audioRecord != null) {
+                audioRecord.release();
+                audioRecord = null;
+            }
+            return STATE_NO_PERMISSION;
+        }
+        if (audioRecord.getRecordingState() != AudioRecord.RECORDSTATE_RECORDING) {
+            if (audioRecord != null) {
+                audioRecord.stop();
+                audioRecord.release();
+                audioRecord = null;
+            }
+            return STATE_RECORDING;
+        } else {
+            readSize = audioRecord.read(point, 0, point.length);
+
+            if (readSize <= 0) {
+                if (audioRecord != null) {
+                    audioRecord.stop();
+                    audioRecord.release();
+                    audioRecord = null;
+                }
+                return STATE_NO_PERMISSION;
+
+            } else {
+                if (audioRecord != null) {
+                    audioRecord.stop();
+                    audioRecord.release();
+                    audioRecord = null;
+                }
+
+                return STATE_SUCCESS;
+            }
+        }
     }
 
     public static Camera.Size getPreviewSize(List<Camera.Size> list, int th, float rate) {

@@ -20,7 +20,6 @@ import com.dclib.camera.listener.ErrorListener;
 import com.dclib.camera.util.FileUtil;
 import com.dclib.camera.util.TUIBuild;
 import com.dclib.camera.util.ToastUtil;
-import com.dclib.camera.view.CameraManager;
 import com.dclib.camera.view.CameraView;
 
 public class CameraActivity extends FragmentActivity {

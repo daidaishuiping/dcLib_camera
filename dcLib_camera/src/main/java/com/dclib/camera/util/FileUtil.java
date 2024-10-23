@@ -33,7 +33,7 @@ import java.util.Random;
 public class FileUtil {
     public static final String DOCUMENTS_DIR = "documents";
 
-    public static final String FILE_PROVIDER_AUTH = ".timcommon.fileprovider";
+    public static final String FILE_PROVIDER_AUTH = ".fileprovider";
 
     public static final int SIZETYPE_B = 1;
     public static final int SIZETYPE_KB = 2;
@@ -556,11 +556,13 @@ public class FileUtil {
     }
 
     public static String getImageBaseDir(Context context) {
-        return getDefaultAppDir(context) + IMAGE_BASE_DIR_SUFFIX;
+//        return getDefaultAppDir(context) + IMAGE_BASE_DIR_SUFFIX;
+        return getDefaultAppDir(context) ;
     }
 
     public static String getVideoBaseDir(Context context) {
-        return getDefaultAppDir(context) + VIDEO_BASE_DIR_SUFFIX;
+//        return getDefaultAppDir(context) + VIDEO_BASE_DIR_SUFFIX;
+        return getDefaultAppDir(context) ;
     }
 
     public static String getDefaultAppDir(Context context) {
