@@ -1,0 +1,47 @@
+plugins {
+    alias(libs.plugins.androidLibrary)
+    id 'maven-publish'   //添加maven publish插件
+}
+
+android {
+    namespace 'com.dclib.camera'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 21
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.android.dcLibs' //组织或公司标识符
+                artifactId = 'dcLibs'  //具体的库名称
+                version = '1.0.7'
+                artifact(bundleReleaseAar)
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    testImplementation libs.junit
+    androidTestImplementation libs.runner
+    androidTestImplementation libs.android.espresso.core
+}
