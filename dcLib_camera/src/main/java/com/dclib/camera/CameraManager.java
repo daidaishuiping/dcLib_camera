@@ -50,7 +50,7 @@ public class CameraManager {
 
         Intent intent = new Intent(context, CameraActivity.class);
         intent.putExtra(CameraActivity.CAMERA_TYPE, CameraActivity.BUTTON_STATE_ONLY_RECORDER);
-        CameraActivity.setTaskPhotoListener(listener);
+        CameraActivity.setTakeCameraListener(listener);
         context.startActivity(intent);
     }
 
