@@ -17,7 +17,7 @@ public class CameraManager {
     /**
      * 开始拍照
      */
-    public static void startTakePhoto(Context context, TaskPhotoListener listener) {
+    public static void startTakePhoto(Context context, TakeCameraListener listener) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             // 相机权限未授予
@@ -26,14 +26,14 @@ public class CameraManager {
         }
 
         Intent intent = new Intent(context, CameraActivity.class);
-        CameraActivity.setTaskPhotoListener(listener);
+        CameraActivity.setTakeCameraListener(listener);
         context.startActivity(intent);
     }
 
     /**
      * 开始录像
      */
-    public static void startVideoRecording(Context context, TaskPhotoListener listener) {
+    public static void startVideoRecording(Context context, TakeCameraListener listener) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             // 相机权限未授予
@@ -41,12 +41,12 @@ public class CameraManager {
             return;
         }
 
-//        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            // 相机权限未授予
-//            listener.onError(-1, "请打开录音权限");
-//            return;
-//        }
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            // 相机权限未授予
+            listener.onError(-1, "请打开录音权限");
+            return;
+        }
 
         Intent intent = new Intent(context, CameraActivity.class);
         intent.putExtra(CameraActivity.CAMERA_TYPE, CameraActivity.BUTTON_STATE_ONLY_RECORDER);
@@ -54,7 +54,7 @@ public class CameraManager {
         context.startActivity(intent);
     }
 
-    public interface TaskPhotoListener {
+    public interface TakeCameraListener {
         void onSuccess(String filePath);
 
         void onError(int code, String error);

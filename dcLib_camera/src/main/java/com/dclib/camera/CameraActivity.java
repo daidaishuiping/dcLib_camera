@@ -33,7 +33,7 @@ public class CameraActivity extends FragmentActivity {
 
     public static final String CAMERA_TYPE = "camera_type";
 
-    private static CameraManager.TaskPhotoListener taskPhotoListener;
+    private static CameraManager.TakeCameraListener takeCameraListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +61,8 @@ public class CameraActivity extends FragmentActivity {
                 Log.e(TAG, "camera error " + errorMsg);
                 Intent intent = new Intent();
                 setResult(103, intent);
-                if (taskPhotoListener != null) {
-                    taskPhotoListener.onError(0, errorMsg);
+                if (takeCameraListener != null) {
+                    takeCameraListener.onError(0, errorMsg);
                 }
                 finish();
             }
@@ -116,8 +116,8 @@ public class CameraActivity extends FragmentActivity {
         Intent intent = new Intent();
         intent.setData(uri);
         setResult(Activity.RESULT_OK, intent);
-        if (taskPhotoListener != null) {
-            taskPhotoListener.onSuccess(filePath);
+        if (takeCameraListener != null) {
+            takeCameraListener.onSuccess(filePath);
         }
         finish();
     }
@@ -156,10 +156,10 @@ public class CameraActivity extends FragmentActivity {
         Log.i(TAG, "onDestroy");
         cameraView.onDestroy();
         super.onDestroy();
-        taskPhotoListener = null;
+        takeCameraListener = null;
     }
 
-    public static void setTaskPhotoListener(CameraManager.TaskPhotoListener taskPhotoListener) {
-        CameraActivity.taskPhotoListener = taskPhotoListener;
+    public static void setTakeCameraListener(CameraManager.TakeCameraListener takeCameraListener) {
+        CameraActivity.takeCameraListener = takeCameraListener;
     }
 }
