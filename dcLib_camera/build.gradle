@@ -30,7 +30,7 @@ afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                groupId = 'com.android.dcLibs' //组织或公司标识符
+                groupId = 'com.android.daidaishuiping' //组织或公司标识符
                 artifactId = 'dcLib_camera'  //具体的库名称
                 version = '1.0.0'
                 artifact(bundleReleaseAar)
